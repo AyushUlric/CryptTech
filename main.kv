@@ -1,0 +1,93 @@
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+ScreenManager:
+	transition: SlideTransition()
+	HomeScreen:
+	EncodeScreen:
+
+<HomeScreen>:
+	name: 'home_screen'
+	canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'bck.png'
+	MDLabel:
+		text:'Cryptech'
+		font_style:"H2"
+		theme_text_color: 'Custom'
+        text_color: (1,0,0,1)
+		pos_hint:{'center_x': 0.5, 'center_y': 0.9}
+		halign:'center'
+							
+	MDLabel:
+		text:'Select Image---->'
+		font_style:'H5'
+		theme_text_color: 'Custom'
+        text_color: (0,0,1,1)
+		pos_hint:{'center_x': 0.25, 'center_y': 0.6}
+		halign:'center'
+	
+	MDFillRoundFlatButton:
+		text:'Browse'
+		pos_hint:{'center_x': 0.77, 'center_y': 0.6}
+		size_hint_x:None
+		width:100
+		on_release: root.search_file()
+									  
+	MDRaisedButton:
+		text:'         Encrypt         '
+		pos_hint:{'center_x': 0.5, 'center_y': 0.4}
+		width:1000
+		on_release: app.root.current= 'encode_screen'
+
+	MDRaisedButton:
+		text:'         Decrypt         '
+		pos_hint:{'center_x': 0.5, 'center_y': 0.3}
+		width:1000
+		on_release: root.Startdecrypt()
+
+<EncodeScreen>:
+	name: 'encode_screen'
+	
+	MDTextField:
+		id: img_name
+		size_hint: 1, None
+		height: '45dp'
+		hint_text: 'Save As (Image Name)'
+		mode: 'rectangle'
+		helper_text: '* Save only as .png'
+		helper_text_mode: 'on_focus'
+		pos_hint: {'center_x':0.5, 'center_y':0.8}
+		size_hint_x: None
+		width: 350
+		line_color_focus: 1, 0, 1, 1
+
+	MDTextField:
+		id: message
+		size_hint: 1, None
+		height: '45dp'
+		hint_text: 'Encode Message'
+		helper_text: 'The Message You Want To Encode'
+		mode: 'rectangle'
+		helper_text_mode: 'on_focus'
+		multiline: True
+		pos_hint: {'center_x':0.5, 'center_y':0.6}
+		size_hint_x: None
+		width: 350
+		line_color_focus: 1, 0, 1, 1
+
+	MDFillRoundFlatButton:
+		id: generate
+		text: "Encode"
+		pos_hint: {'center_x': 0.6, 'center_y': 0.5}	
+		size_hint_x: None
+		width: 200
+		on_release: root.encrypt()
+
+	MDFillRoundFlatButton:
+		text: "Back"
+		pos_hint: {'center_x': 0.4, 'center_y': 0.5}	
+		size_hint_x: None
+		width: 200
+		on_release: app.root.current = 'home_screen'
